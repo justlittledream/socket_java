@@ -11,6 +11,8 @@ import java.net.Socket;
     date：2020/09/01
     description: 能够实现双向通信，客户端输入exit后，断开连接，服务器仍然保持连接
     存在问题，必须客户端先发送消息，且无法连续发送消息。另外，只能一个客户端进行连接（通过线程解决）。
+    date：2020/09/09
+    为了测试branch进行了修改
 */
 public class Server {
     private static final int PORT = 8900;

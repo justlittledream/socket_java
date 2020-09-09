@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
+//为了测试branch进行了修改
 public class Client {
     private static final int PORT = 8900;
     private static String host = "localhost";
