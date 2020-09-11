@@ -10,7 +10,7 @@ import java.net.Socket;
 //为了测试branch进行了修改
 public class Client {
     private static final int PORT = 8900;
-    private static String host = "localhost";
+    private static String host = "10.190.180.160";
     private static Socket server;
     //private static String name = "client";
 
@@ -38,7 +38,8 @@ public class Client {
                 System.out.println("你已经断开了连接");
                 break;
             }
-            System.out.println("server: " + socketIn.readLine());
+
+            System.out.println(socketIn.readLine());
         }
         server.close();
         socketIn.close();
