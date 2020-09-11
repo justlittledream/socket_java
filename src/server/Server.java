@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 /*
@@ -13,6 +14,8 @@ import java.net.Socket;
     存在问题，必须客户端先发送消息，且无法连续发送消息。另外，只能一个客户端进行连接（通过线程解决）。
     date：2020/09/09
     为了测试branch进行了修改
+     date：2020/09/11
+    客户端发送消息，服务端直接返回相同消息
 */
 public class Server {
     private static final int PORT = 8900;
@@ -24,7 +27,9 @@ public class Server {
 
     public Server() throws IOException{
         this.serverSocket = new ServerSocket(PORT);
-        System.out.println("服务器启动，监听端口号为：" + PORT);
+        InetAddress addr = InetAddress.getLocalHost();
+        System.out.println("服务器启动，监听地址为："+addr.getHostAddress() + ":" + PORT);
+        //System.out.println("" + PORT);
     }
 
 //    public  String echo(String msg){
@@ -34,6 +39,7 @@ public class Server {
     public void service() throws IOException {
         Socket socket = null;
         //boolean end = true;
+
         while (true){
             socket = serverSocket.accept();
             //System.out.print("开始监听：");
@@ -41,21 +47,21 @@ public class Server {
                     ": " + socket.getPort());
             BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
-            BufferedReader systemIn = new BufferedReader(new InputStreamReader(System.in));
+            //BufferedReader systemIn = new BufferedReader(new InputStreamReader(System.in));
             while (true){
                 String str = socketIn.readLine();
                 if(str.equals("exit")){
                     System.out.println("client 断开了连接,等待新的client链接" );
                     break;
                 }
-                System.out.println("client:" + str);
-                String send = systemIn.readLine();
+                //System.out.println("client:" + str);
+                //String send = systemIn.readLine();
 //                if(send.equals("end")){
 //                    System.out.println("??????");
 //                    end = false;
 //                    break;
 //                }
-                socketOut.println(send);
+                socketOut.println("server: " + str);
                 //out.println("server has received.");
                 //socketOut.println(str);
                 socketOut.flush();
